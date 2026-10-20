@@ -2,6 +2,10 @@
 
 En att göra-applikation skapad med TypeScript i kursen Programmering i TypeScript vid Mittuniversitetet.
 
+## Publicerad webbplats
+
+https://lab2-typescript.netlify.app/
+
 ## Beskrivning
 
 Syftet med laborationen var att skapa en todo-applikation med hjälp av objektorienterad programmering. Användaren ska kunna lägga till uppgifter, välja prioritet och sedan bocka av dessa.
@@ -75,10 +79,6 @@ Starta utvecklingsservern:
 ```bash
 npm run dev
 ```
-
-## Publicerad webbplats
-
-https://lab2-typescript.netlify.app/
 
 ## Github
 
