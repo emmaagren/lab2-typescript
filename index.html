@@ -1,13 +1,50 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>laboration-2</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+<html lang="sv">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Min att göra lista</title>
+</head>
+
+<body>
+
+  <header>
+    <h1>Min att göra lista</h1>
+  </header>
+
+  <main>
+    <section>
+      <h2>Lägg till en uppgift</h2>
+
+      <form id="todoForm">
+        <label for="task">Uppgift:</label>
+        <input type="text" id="task" name="task">
+
+        <label for="priority">Prioritet:</label>
+        <select name="priority" id="priority">
+          <option value="1">1 - Hög</option>
+          <option value="2">2 - Medel</option>
+          <option value="3">3 - Låg</option>
+        </select>
+
+        <button type="submit">Lägg till</button>
+
+      </form>
+
+      <p id="errorMessage"></p>
+    </section>
+
+    <section>
+      <h2>Mina uppgifter</h2>
+      <ul id="todoList"></ul>
+    </section>
+
+  </main>
+
+  <div id="app"></div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>

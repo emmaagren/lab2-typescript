@@ -45,7 +45,7 @@ export class TodoList {
     }
 
     saveToLocalStorage(): void {
-        localStorage.seItem("todos", JSON.stringify(this.todos));
+        localStorage.setItem("todos", JSON.stringify(this.todos));
     }
 
     loadFromLocalStorage(): void {

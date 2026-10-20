@@ -1,60 +1,64 @@
-import './style.css'
-import heroImg from './assets/hero.png'
-import typescriptLogo from './assets/typescript.svg'
-import viteLogo from './assets/vite.svg'
-import { setupCounter } from './counter.ts'
+import { TodoList } from "./TodoList";
+import "./style.css";
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-<section id="center">
-  <div class="hero">
-    <img src="${heroImg}" class="base" width="170" height="179">
-    <img src="${typescriptLogo}" class="framework" alt="TypeScript logo"/>
-    <img src="${viteLogo}" class="vite" alt="Vite logo" />
-  </div>
-  <div>
-    <h1>Get started</h1>
-    <p>Edit <code>src/main.ts</code> and save to test <code>HMR</code></p>
-  </div>
-  <button id="counter" type="button" class="counter"></button>
-</section>
+// Skapa ett objekt av TodoList-klassen
+const todoList = new TodoList();
 
-<div class="ticks"></div>
+// Hämta formuläret och HTML-elementen
+const form = document.querySelector("#todoForm") as HTMLFormElement;
+const taskInput = document.querySelector("#task") as HTMLInputElement;
+const priorityInput = document.querySelector("#priority") as HTMLSelectElement;
+const errorMessage = document.querySelector("#errorMessage") as HTMLParagraphElement;
+const todoListElement = document.querySelector("#todoList") as HTMLUListElement;
 
-<section id="next-steps">
-  <div id="docs">
-    <svg class="icon" role="presentation" aria-hidden="true"><use href="/icons.svg#documentation-icon"></use></svg>
-    <h2>Documentation</h2>
-    <p>Your questions, answered</p>
-    <ul>
-      <li>
-        <a href="https://vite.dev/" target="_blank">
-          <img class="logo" src="${viteLogo}" alt="" />
-          Explore Vite
-        </a>
-      </li>
-      <li>
-        <a href="https://www.typescriptlang.org" target="_blank">
-          <img class="button-icon" src="${typescriptLogo}" alt="">
-          Learn more
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div id="social">
-    <svg class="icon" role="presentation" aria-hidden="true"><use href="/icons.svg#social-icon"></use></svg>
-    <h2>Connect with us</h2>
-    <p>Join the Vite community</p>
-    <ul>
-      <li><a href="https://github.com/vitejs/vite" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#github-icon"></use></svg>GitHub</a></li>
-      <li><a href="https://chat.vite.dev/" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#discord-icon"></use></svg>Discord</a></li>
-      <li><a href="https://x.com/vite_js" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#x-icon"></use></svg>X.com</a></li>
-      <li><a href="https://bsky.app/profile/vite.dev" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#bluesky-icon"></use></svg>Bluesky</a></li>
-    </ul>
-  </div>
-</section>
+// Lyssna efter att formuläret skickas
+form.addEventListener("submit", (event: Event) => {
+  event.preventDefault();
 
-<div class="ticks"></div>
-<section id="spacer"></section>
-`
+  const task = taskInput.value;
+  const priority = Number(priorityInput.value);
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+  // Lägg till uppgiften med hjälp av klassen
+  const success = todoList.addTodo(task, priority);
+
+  if (success) {
+    errorMessage.textContent = "";
+    form.reset();
+    console.log("Uppgift tillagd!");
+    renderTodos();
+
+  } else {
+
+    errorMessage.textContent = "Ange en giltig uppgift och prioritet.";
+  }
+});
+
+function renderTodos(): void {
+  const todos = todoList.getTodos();
+
+  todoListElement.innerHTML = "";
+
+  todos.forEach((todo, index) => {
+    const li = document.createElement("li");
+
+    li.textContent = `${todo.task} - Prioritet: ${todo.priority}`;
+
+    if (todo.completed) {
+      li.style.textDecoration = "line-through";
+    } else {
+      const button = document.createElement("button");
+      button.textContent = "Markera som klar";
+
+      button.addEventListener("click", () => {
+        todoList.markTodoCompleted(index);
+        renderTodos();
+      });
+
+      li.appendChild(button);
+    }
+
+    todoListElement.appendChild(li);
+  });
+
+
+}
