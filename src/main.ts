@@ -34,6 +34,7 @@ form.addEventListener("submit", (event: Event) => {
 });
 
 function renderTodos(): void {
+
   const todos = todoList.getTodos();
 
   todoListElement.innerHTML = "";
@@ -62,3 +63,6 @@ function renderTodos(): void {
 
 
 }
+
+// Visa sparade uppgifter när sidan laddas om
+renderTodos();
