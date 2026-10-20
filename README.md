@@ -78,6 +78,8 @@ npm run dev
 
 ## Publicerad webbplats
 
+https://lab2-typescript.netlify.app/
+
 ## Github
 
 https://github.com/emmaagren/lab2-typescript.git
